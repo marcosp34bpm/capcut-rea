@@ -1,0 +1,823 @@
+{
+  "ledgers": [
+    {
+      "evidence_id": "ev_010c2eb098bf6861d550300212f8bbeed75c5d7bdd497040820b5dc343300281",
+      "subject": "commonagent",
+      "subject_path": "C:\\Users\\marco\\AppData\\Local\\CapCut\\Apps\\9.6.0.4097\\Resources\\common_agent\\app\\commonagent",
+      "output": "C:\\Users\\marco\\AppData\\Local\\Temp\\opencode\\capcut-ledgers\\000.ledger.json",
+      "ledger_id": "rol_e609044d57f6dcc8f3ad0de876e4ab6ef17aa8836f056029b9bb7efd9c21e395",
+      "closure_digest": "7b30c3d80f28518b7550bd6e8b8e8732df0ed71d16854b31fc9ae6ea34b3a786",
+      "status": "unknown",
+      "coverage": {
+        "status": "partial"
+      },
+      "summary": {
+        "total": 450,
+        "required": 450,
+        "verified": 0,
+        "required_open": 450,
+        "by_status": [
+          {
+            "key": "unowned",
+            "count": 450
+          },
+          {
+            "key": "characterized",
+            "count": 0
+          },
+          {
+            "key": "implemented",
+            "count": 0
+          },
+          {
+            "key": "verified",
+            "count": 0
+          },
+          {
+            "key": "contradicted",
+            "count": 0
+          },
+          {
+            "key": "blocked",
+            "count": 0
+          },
+          {
+            "key": "out-of-scope",
+            "count": 0
+          },
+          {
+            "key": "unknown",
+            "count": 0
+          }
+        ],
+        "by_application_layer": [
+          {
+            "key": "cli",
+            "count": 0
+          },
+          {
+            "key": "protocol",
+            "count": 221
+          },
+          {
+            "key": "electron",
+            "count": 0
+          },
+          {
+            "key": "persistence",
+            "count": 12
+          },
+          {
+            "key": "process",
+            "count": 10
+          },
+          {
+            "key": "runtime",
+            "count": 169
+          },
+          {
+            "key": "packaging",
+            "count": 0
+          },
+          {
+            "key": "native-abi",
+            "count": 0
+          },
+          {
+            "key": "application",
+            "count": 38
+          },
+          {
+            "key": "other",
+            "count": 0
+          }
+        ],
+        "by_evidence_authority": [
+          {
+            "key": "shipped-artifact",
+            "count": 450
+          },
+          {
+            "key": "controlled-replay",
+            "count": 0
+          },
+          {
+            "key": "historical-reference",
+            "count": 0
+          },
+          {
+            "key": "external-service",
+            "count": 0
+          },
+          {
+            "key": "analyst-inference",
+            "count": 0
+          }
+        ],
+        "by_source_state": [
+          {
+            "key": "candidate",
+            "count": 450
+          },
+          {
+            "key": "observed",
+            "count": 0
+          },
+          {
+            "key": "reviewed",
+            "count": 0
+          },
+          {
+            "key": "unknown",
+            "count": 0
+          }
+        ]
+      },
+      "limitation_count": 17
+    },
+    {
+      "evidence_id": "ev_3f81c3eb962e2fc624e05bd90bbdada3211ef1788c59126ecf0309323c58b4cb",
+      "subject": "video-studio",
+      "subject_path": "C:\\Users\\marco\\AppData\\Local\\CapCut\\Apps\\9.6.0.4097\\Resources\\common_agent\\app\\video-studio",
+      "output": "C:\\Users\\marco\\AppData\\Local\\Temp\\opencode\\capcut-ledgers\\006.ledger.json",
+      "ledger_id": "rol_a42389d17d22d8aff30368d2f0e23f61f9c2d6f36f1f7b6f4614ed6953ba908a",
+      "closure_digest": "d6072e991e0a0a428936389b708aee0938c3535944607f70040e2ed7a86ecc46",
+      "status": "unknown",
+      "coverage": {
+        "status": "partial"
+      },
+      "summary": {
+        "total": 61,
+        "required": 61,
+        "verified": 0,
+        "required_open": 61,
+        "by_status": [
+          {
+            "key": "unowned",
+            "count": 61
+          },
+          {
+            "key": "characterized",
+            "count": 0
+          },
+          {
+            "key": "implemented",
+            "count": 0
+          },
+          {
+            "key": "verified",
+            "count": 0
+          },
+          {
+            "key": "contradicted",
+            "count": 0
+          },
+          {
+            "key": "blocked",
+            "count": 0
+          },
+          {
+            "key": "out-of-scope",
+            "count": 0
+          },
+          {
+            "key": "unknown",
+            "count": 0
+          }
+        ],
+        "by_application_layer": [
+          {
+            "key": "cli",
+            "count": 0
+          },
+          {
+            "key": "protocol",
+            "count": 27
+          },
+          {
+            "key": "electron",
+            "count": 0
+          },
+          {
+            "key": "persistence",
+            "count": 5
+          },
+          {
+            "key": "process",
+            "count": 0
+          },
+          {
+            "key": "runtime",
+            "count": 16
+          },
+          {
+            "key": "packaging",
+            "count": 0
+          },
+          {
+            "key": "native-abi",
+            "count": 0
+          },
+          {
+            "key": "application",
+            "count": 13
+          },
+          {
+            "key": "other",
+            "count": 0
+          }
+        ],
+        "by_evidence_authority": [
+          {
+            "key": "shipped-artifact",
+            "count": 61
+          },
+          {
+            "key": "controlled-replay",
+            "count": 0
+          },
+          {
+            "key": "historical-reference",
+            "count": 0
+          },
+          {
+            "key": "external-service",
+            "count": 0
+          },
+          {
+            "key": "analyst-inference",
+            "count": 0
+          }
+        ],
+        "by_source_state": [
+          {
+            "key": "candidate",
+            "count": 61
+          },
+          {
+            "key": "observed",
+            "count": 0
+          },
+          {
+            "key": "reviewed",
+            "count": 0
+          },
+          {
+            "key": "unknown",
+            "count": 0
+          }
+        ]
+      },
+      "limitation_count": 3
+    },
+    {
+      "evidence_id": "ev_40cc8c372cc53777a1400fead33aa83627f9d1876e0ee48e4365de6137d29915",
+      "subject": "runtime",
+      "subject_path": "C:\\Users\\marco\\AppData\\Local\\CapCut\\Apps\\9.6.0.4097\\Resources\\common_agent\\runtime",
+      "output": "C:\\Users\\marco\\AppData\\Local\\Temp\\opencode\\capcut-ledgers\\007.ledger.json",
+      "ledger_id": "rol_30bea1f0cbca76d2bece5d8e3112b044f99f49bba8a059386ac18613b3d211bd",
+      "closure_digest": "43021292a06c22ea173ca236bfd8dc9db426b5f5396129fb9334d8abcf447710",
+      "status": "unknown",
+      "coverage": {
+        "status": "partial"
+      },
+      "summary": {
+        "total": 284,
+        "required": 284,
+        "verified": 0,
+        "required_open": 284,
+        "by_status": [
+          {
+            "key": "unowned",
+            "count": 284
+          },
+          {
+            "key": "characterized",
+            "count": 0
+          },
+          {
+            "key": "implemented",
+            "count": 0
+          },
+          {
+            "key": "verified",
+            "count": 0
+          },
+          {
+            "key": "contradicted",
+            "count": 0
+          },
+          {
+            "key": "blocked",
+            "count": 0
+          },
+          {
+            "key": "out-of-scope",
+            "count": 0
+          },
+          {
+            "key": "unknown",
+            "count": 0
+          }
+        ],
+        "by_application_layer": [
+          {
+            "key": "cli",
+            "count": 1
+          },
+          {
+            "key": "protocol",
+            "count": 47
+          },
+          {
+            "key": "electron",
+            "count": 0
+          },
+          {
+            "key": "persistence",
+            "count": 1
+          },
+          {
+            "key": "process",
+            "count": 0
+          },
+          {
+            "key": "runtime",
+            "count": 134
+          },
+          {
+            "key": "packaging",
+            "count": 0
+          },
+          {
+            "key": "native-abi",
+            "count": 0
+          },
+          {
+            "key": "application",
+            "count": 101
+          },
+          {
+            "key": "other",
+            "count": 0
+          }
+        ],
+        "by_evidence_authority": [
+          {
+            "key": "shipped-artifact",
+            "count": 284
+          },
+          {
+            "key": "controlled-replay",
+            "count": 0
+          },
+          {
+            "key": "historical-reference",
+            "count": 0
+          },
+          {
+            "key": "external-service",
+            "count": 0
+          },
+          {
+            "key": "analyst-inference",
+            "count": 0
+          }
+        ],
+        "by_source_state": [
+          {
+            "key": "candidate",
+            "count": 284
+          },
+          {
+            "key": "observed",
+            "count": 0
+          },
+          {
+            "key": "reviewed",
+            "count": 0
+          },
+          {
+            "key": "unknown",
+            "count": 0
+          }
+        ]
+      },
+      "limitation_count": 2
+    },
+    {
+      "evidence_id": "ev_879da352fb59688305a1c1dc61654a24238353d89f3c8859b834a4fef09e27cb",
+      "subject": "runtime",
+      "subject_path": "C:\\Users\\marco\\AppData\\Local\\CapCut\\Apps\\9.6.0.4097\\Resources\\common_agent\\runtime",
+      "output": "C:\\Users\\marco\\AppData\\Local\\Temp\\opencode\\capcut-ledgers\\014.ledger.json",
+      "ledger_id": "rol_1fde375eb7e9fd75ef75dded9249f593707cb8def79c29ece75d096ead1514a8",
+      "closure_digest": "f0940035fcd378e6c0efd335962359bc8b0fd20b0eef675d814f09c0d6f1e0f1",
+      "status": "unknown",
+      "coverage": {
+        "status": "partial"
+      },
+      "summary": {
+        "total": 284,
+        "required": 284,
+        "verified": 0,
+        "required_open": 284,
+        "by_status": [
+          {
+            "key": "unowned",
+            "count": 284
+          },
+          {
+            "key": "characterized",
+            "count": 0
+          },
+          {
+            "key": "implemented",
+            "count": 0
+          },
+          {
+            "key": "verified",
+            "count": 0
+          },
+          {
+            "key": "contradicted",
+            "count": 0
+          },
+          {
+            "key": "blocked",
+            "count": 0
+          },
+          {
+            "key": "out-of-scope",
+            "count": 0
+          },
+          {
+            "key": "unknown",
+            "count": 0
+          }
+        ],
+        "by_application_layer": [
+          {
+            "key": "cli",
+            "count": 1
+          },
+          {
+            "key": "protocol",
+            "count": 47
+          },
+          {
+            "key": "electron",
+            "count": 0
+          },
+          {
+            "key": "persistence",
+            "count": 1
+          },
+          {
+            "key": "process",
+            "count": 0
+          },
+          {
+            "key": "runtime",
+            "count": 134
+          },
+          {
+            "key": "packaging",
+            "count": 0
+          },
+          {
+            "key": "native-abi",
+            "count": 0
+          },
+          {
+            "key": "application",
+            "count": 101
+          },
+          {
+            "key": "other",
+            "count": 0
+          }
+        ],
+        "by_evidence_authority": [
+          {
+            "key": "shipped-artifact",
+            "count": 284
+          },
+          {
+            "key": "controlled-replay",
+            "count": 0
+          },
+          {
+            "key": "historical-reference",
+            "count": 0
+          },
+          {
+            "key": "external-service",
+            "count": 0
+          },
+          {
+            "key": "analyst-inference",
+            "count": 0
+          }
+        ],
+        "by_source_state": [
+          {
+            "key": "candidate",
+            "count": 284
+          },
+          {
+            "key": "observed",
+            "count": 0
+          },
+          {
+            "key": "reviewed",
+            "count": 0
+          },
+          {
+            "key": "unknown",
+            "count": 0
+          }
+        ]
+      },
+      "limitation_count": 1
+    },
+    {
+      "evidence_id": "ev_d66a02ddba4c38c6cab26d049eecddb1095ae2fd914bcf4734a393e5954be16d",
+      "subject": "commonagent",
+      "subject_path": "C:\\Users\\marco\\AppData\\Local\\CapCut\\Apps\\9.6.0.4097\\Resources\\common_agent\\app\\commonagent",
+      "output": "C:\\Users\\marco\\AppData\\Local\\Temp\\opencode\\capcut-ledgers\\020.ledger.json",
+      "ledger_id": "rol_db8e11812c3defa666341667df082e573e635eb672ce9415d59280c926a6fb3f",
+      "closure_digest": "ae529881e1d60f7a30f42ab2f8f324c6de60223aeaa3770dd7dbb52859b9e9f1",
+      "status": "unknown",
+      "coverage": {
+        "status": "partial"
+      },
+      "summary": {
+        "total": 445,
+        "required": 445,
+        "verified": 0,
+        "required_open": 445,
+        "by_status": [
+          {
+            "key": "unowned",
+            "count": 445
+          },
+          {
+            "key": "characterized",
+            "count": 0
+          },
+          {
+            "key": "implemented",
+            "count": 0
+          },
+          {
+            "key": "verified",
+            "count": 0
+          },
+          {
+            "key": "contradicted",
+            "count": 0
+          },
+          {
+            "key": "blocked",
+            "count": 0
+          },
+          {
+            "key": "out-of-scope",
+            "count": 0
+          },
+          {
+            "key": "unknown",
+            "count": 0
+          }
+        ],
+        "by_application_layer": [
+          {
+            "key": "cli",
+            "count": 0
+          },
+          {
+            "key": "protocol",
+            "count": 214
+          },
+          {
+            "key": "electron",
+            "count": 0
+          },
+          {
+            "key": "persistence",
+            "count": 12
+          },
+          {
+            "key": "process",
+            "count": 12
+          },
+          {
+            "key": "runtime",
+            "count": 169
+          },
+          {
+            "key": "packaging",
+            "count": 0
+          },
+          {
+            "key": "native-abi",
+            "count": 0
+          },
+          {
+            "key": "application",
+            "count": 38
+          },
+          {
+            "key": "other",
+            "count": 0
+          }
+        ],
+        "by_evidence_authority": [
+          {
+            "key": "shipped-artifact",
+            "count": 445
+          },
+          {
+            "key": "controlled-replay",
+            "count": 0
+          },
+          {
+            "key": "historical-reference",
+            "count": 0
+          },
+          {
+            "key": "external-service",
+            "count": 0
+          },
+          {
+            "key": "analyst-inference",
+            "count": 0
+          }
+        ],
+        "by_source_state": [
+          {
+            "key": "candidate",
+            "count": 445
+          },
+          {
+            "key": "observed",
+            "count": 0
+          },
+          {
+            "key": "reviewed",
+            "count": 0
+          },
+          {
+            "key": "unknown",
+            "count": 0
+          }
+        ]
+      },
+      "limitation_count": 7
+    },
+    {
+      "evidence_id": "ev_e310c83151310b24d9223daba6c30ee98aa0956a1dd630224897be9074d3d43b",
+      "subject": "commonagent",
+      "subject_path": "C:\\Users\\marco\\AppData\\Local\\CapCut\\Apps\\9.6.0.4097\\Resources\\common_agent\\app\\commonagent",
+      "output": "C:\\Users\\marco\\AppData\\Local\\Temp\\opencode\\capcut-ledgers\\021.ledger.json",
+      "ledger_id": "rol_f2b679cede6a608906fe1061bdca017f0abf856ece737167a07b8724aec3247f",
+      "closure_digest": "04dae736c4b1cf5e7298dcca4f91ce375730f61d423857c4d2c4fc7f82570906",
+      "status": "unknown",
+      "coverage": {
+        "status": "partial"
+      },
+      "summary": {
+        "total": 265,
+        "required": 265,
+        "verified": 0,
+        "required_open": 265,
+        "by_status": [
+          {
+            "key": "unowned",
+            "count": 265
+          },
+          {
+            "key": "characterized",
+            "count": 0
+          },
+          {
+            "key": "implemented",
+            "count": 0
+          },
+          {
+            "key": "verified",
+            "count": 0
+          },
+          {
+            "key": "contradicted",
+            "count": 0
+          },
+          {
+            "key": "blocked",
+            "count": 0
+          },
+          {
+            "key": "out-of-scope",
+            "count": 0
+          },
+          {
+            "key": "unknown",
+            "count": 0
+          }
+        ],
+        "by_application_layer": [
+          {
+            "key": "cli",
+            "count": 0
+          },
+          {
+            "key": "protocol",
+            "count": 184
+          },
+          {
+            "key": "electron",
+            "count": 0
+          },
+          {
+            "key": "persistence",
+            "count": 12
+          },
+          {
+            "key": "process",
+            "count": 8
+          },
+          {
+            "key": "runtime",
+            "count": 51
+          },
+          {
+            "key": "packaging",
+            "count": 0
+          },
+          {
+            "key": "native-abi",
+            "count": 0
+          },
+          {
+            "key": "application",
+            "count": 10
+          },
+          {
+            "key": "other",
+            "count": 0
+          }
+        ],
+        "by_evidence_authority": [
+          {
+            "key": "shipped-artifact",
+            "count": 265
+          },
+          {
+            "key": "controlled-replay",
+            "count": 0
+          },
+          {
+            "key": "historical-reference",
+            "count": 0
+          },
+          {
+            "key": "external-service",
+            "count": 0
+          },
+          {
+            "key": "analyst-inference",
+            "count": 0
+          }
+        ],
+        "by_source_state": [
+          {
+            "key": "candidate",
+            "count": 265
+          },
+          {
+            "key": "observed",
+            "count": 0
+          },
+          {
+            "key": "reviewed",
+            "count": 0
+          },
+          {
+            "key": "unknown",
+            "count": 0
+          }
+        ]
+      },
+      "limitation_count": 23
+    }
+  ],
+  "skippedOperations": [
+    "inspect_analysis_view",
+    "search_strings",
+    "read_binary_inventory_summary",
+    "binary_overview",
+    "list_strings",
+    "inspect_desktop_application",
+    "list_names"
+  ]
+}
