@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CapCut reconstruction — editor agent</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0d0f14;
+        --panel: #161a22;
+        --panel-2: #1e232d;
+        --line: #2a313d;
+        --text: #e6e9ef;
+        --muted: #8b95a7;
+        --accent: #4d7cfe;
+        --ok: #3ecf8e;
+        --warn: #f0a13a;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font: 14px/1.5 ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+      header {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        padding: 14px 20px;
+        border-bottom: 1px solid var(--line);
+        background: var(--panel);
+      }
+      header h1 { font-size: 15px; margin: 0; letter-spacing: .2px; }
+      header .meta { color: var(--muted); font-size: 12px; }
+      main {
+        display: grid;
+        grid-template-columns: 280px 1fr 340px;
+        gap: 12px;
+        padding: 12px;
+        height: calc(100vh - 52px);
+      }
+      section {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+      }
+      section > h2 {
+        margin: 0;
+        padding: 10px 12px;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+        color: var(--muted);
+        border-bottom: 1px solid var(--line);
+      }
+      .body { overflow: auto; padding: 12px; flex: 1; min-height: 0; }
+      .row {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 5px 0;
+        border-bottom: 1px dashed #232935;
+      }
+      .row:last-child { border-bottom: 0; }
+      .row span:first-child { color: var(--muted); }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+      .pill {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 1px 8px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .track {
+        background: var(--panel-2);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 8px;
+        margin-bottom: 8px;
+      }
+      .track h3 { margin: 0 0 6px; font-size: 12px; display: flex; gap: 8px; align-items: center; }
+      .seg {
+        background: #23304d;
+        border: 1px solid #33507f;
+        border-radius: 4px;
+        padding: 4px 8px;
+        margin: 3px 0;
+        font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+      }
+      .seg.eff { background: #2c2547; border-color: #4c3f7a; }
+      .seg.key { background: #173a30; border-color: #24664f; }
+      canvas#preview {
+        width: 100%;
+        max-width: 220px;
+        aspect-ratio: 9 / 16;
+        background: #0a0c10;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        display: block;
+        margin: 0 auto 12px;
+      }
+      button {
+        background: var(--accent);
+        border: 0;
+        color: #fff;
+        border-radius: 6px;
+        padding: 7px 10px;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      button.ghost { background: var(--panel-2); border: 1px solid var(--line); color: var(--text); }
+      button:disabled { opacity: .5; cursor: not-allowed; }
+      .toolbar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+      pre {
+        background: #0a0c10;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 10px;
+        font-size: 11px;
+        overflow: auto;
+        max-height: 320px;
+        margin: 0;
+      }
+      .hint { color: var(--muted); font-size: 12px; margin: 0 0 10px; }
+      label { display: block; margin: 8px 0 3px; font-size: 12px; color: var(--muted); }
+      input, select {
+        width: 100%;
+        background: var(--panel-2);
+        border: 1px solid var(--line);
+        color: var(--text);
+        border-radius: 5px;
+        padding: 6px 8px;
+        font-size: 12px;
+      }
+      .ok { color: var(--ok); }
+      .warn { color: var(--warn); }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>CapCut reconstruction</h1>
+      <span class="meta" id="head-meta">carregando…</span>
+    </header>
+    <main>
+      <section>
+        <h2>Assets</h2>
+        <div class="body">
+          <div id="assets"></div>
+          <label for="asset-id">Asset para inserir na timeline</label>
+          <select id="asset-id"></select>
+          <div class="toolbar" style="margin-top: 10px">
+            <button id="insert" class="ghost">add-draft (dry-run)</button>
+            <button id="insert-real">add-draft (commit)</button>
+          </div>
+          <p class="hint">
+            Inserção usa <span class="mono">expected-asset-revision</span> e
+            <span class="mono">expected-timeline-revision</span>, como o
+            contrato original.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Timeline</h2>
+        <div class="body">
+          <div class="toolbar">
+            <button id="add-track" class="ghost">add-track</button>
+            <button id="undo" class="ghost">undo</button>
+            <button id="refresh" class="ghost">refresh</button>
+          </div>
+          <div id="tracks"></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Canvas / Agente</h2>
+        <div class="body">
+          <canvas id="preview" width="270" height="480"></canvas>
+          <div class="toolbar">
+            <button id="add-node" class="ghost">create-node</button>
+            <button id="dup-node" class="ghost">duplicate-node</button>
+            <button id="move-node" class="ghost">move-node</button>
+            <button id="del-node" class="ghost">delete-node</button>
+          </div>
+          <pre id="log">sem operações ainda</pre>
+        </div>
+      </section>
+    </main>
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
