@@ -13,6 +13,70 @@ Both are built from the static analysis in [`../README.md`](../README.md) and
 
 ---
 
+## MCP server — the native engine as an agent tool
+
+The native engine is exposed over MCP so an agent can drive the real editor
+directly.
+
+### Registration
+
+Added to `~/.config/opencode/opencode.jsonc`:
+
+```jsonc
+"capcut": {
+  "type": "local",
+  "command": [
+    "C:\\Program Files\\nodejs\\node.exe",
+    "C:\\Users\\marco\\Documents\\capcut-rea\\app\\src\\mcp-native.mjs"
+  ],
+  "enabled": true,
+  "environment": {
+    "CAPCUT_ROOT": "C:\\Users\\marco\\AppData\\Local\\CapCut\\Apps\\9.6.0.4097",
+    "CAPCUT_DRAFT_PATH": "C:\\Users\\marco\\Documents\\capcut-rea\\app\\native\\draft_content.json"
+  }
+}
+```
+
+### Tool surface
+
+The native `edit` domain accepts 199 operations. Registering one MCP tool per
+operation would flood the agent's context, so the surface stays at four tools:
+
+| Tool | Purpose |
+| --- | --- |
+| `capcut_capabilities` | Engine identity, the operation catalogue by group, and the confirmed parameter shapes. Start here. |
+| `capcut_state` | Live native playback state and a draft summary. |
+| `capcut_draft` | The canonical native draft, optionally one section or a summary. |
+| `capcut_edit` | Run one native edit operation; returns the native diff and the updated draft revision. |
+
+### Why the engine runs in its own process
+
+The shipped engine prints diagnostics on stdout. Under stdio MCP that would
+corrupt the JSON-RPC framing. The shipped application solves this the same way:
+the engine runs in its own process and the caller talks to it over a local
+socket.
+
+```
+mcp-native.mjs  (MCP stdio)  ──socket──>  host.mjs  ──>  videoeditor_addon.node
+```
+
+`src/native/host.mjs` owns the engine and serves a line-delimited JSON
+protocol; `src/native/client.mjs` spawns it and connects.
+
+### Verified through the MCP surface
+
+`test/mcp.test.mjs` starts the real MCP server, connects a real MCP client and
+drives the real engine:
+
+- the four tools are advertised with schemas and descriptions
+- `capcut_capabilities` reports 199 operations and the parameter conventions
+- `capcut_state` reports `status: ready` and a live draft summary
+- `capcut_edit` mutates the draft and returns the native diff
+- a missing required parameter returns `segment_id_required`
+- an operation outside the catalogue returns `unsupported_operation`
+
+---
+
 ## Native edition — the real engine
 
 ### What it does
@@ -161,7 +225,11 @@ app/
 │   │   └── canvas.mjs       canvas nodes, transforms, undo
 │   ├── native/
 │   │   ├── editor.mjs       loads videoeditor_addon.node, drives the real engine
+│   │   ├── host.mjs         engine host process, line JSON over a local socket
+│   │   ├── client.mjs       spawns the host and connects to it
+│   │   ├── protocol.mjs     line-delimited JSON framing
 │   │   └── lyra-native.mjs  native CLI argument and request handling
+│   ├── mcp-native.mjs       MCP server over the native engine
 │   ├── native-server.mjs    HTTP API over the real engine
 │   ├── native.html/.js      web UI over the real engine
 │   ├── lyra-cli-ipc.mjs     model command surface and JSON shapes
@@ -177,7 +245,8 @@ app/
 └── test/
     ├── editor.test.mjs       22 model contract tests
     ├── lyra-cli-ipc.test.mjs 13 model CLI tests
-    └── native.test.mjs       8 native engine tests
+    ├── native.test.mjs       8 native engine tests
+    └── mcp.test.mjs          7 MCP surface tests
 ```
 
 ### Run the model edition
