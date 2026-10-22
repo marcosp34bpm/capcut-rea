@@ -261,6 +261,37 @@ server.registerTool(
   },
 );
 
+server.registerTool(
+  "capcut_render",
+  {
+    title: "Render the native draft to a video file",
+    description:
+      "Render the current native draft to an MP4 using the FFmpeg binary shipped with the local CapCut installation. Video and audio segments are decoded and composed on the draft canvas, and text layers are rasterized and overlaid. Returns the output path, encoder and duration.",
+    inputSchema: z.object({
+      output: z
+        .string()
+        .optional()
+        .describe(
+          "Absolute output path for the MP4. Defaults to a temporary file.",
+        ),
+      encoder: z
+        .string()
+        .optional()
+        .describe(
+          "Video encoder: h264_nvenc, h264_amf, h264_qsv or h264_mf. Defaults to h264_nvenc.",
+        ),
+    }),
+  },
+  async ({ output, encoder }) => {
+    try {
+      const result = await editor.render({ output, encoder });
+      return text(result);
+    } catch (cause) {
+      return failure(cause);
+    }
+  },
+);
+
 const shutdown = async () => {
   await editor.close();
   process.exit(0);

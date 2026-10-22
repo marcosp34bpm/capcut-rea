@@ -40,7 +40,7 @@ Added to `~/.config/opencode/opencode.jsonc`:
 ### Tool surface
 
 The native `edit` domain accepts 199 operations. Registering one MCP tool per
-operation would flood the agent's context, so the surface stays at four tools:
+operation would flood the agent's context, so the surface stays at five tools:
 
 | Tool | Purpose |
 | --- | --- |
@@ -48,6 +48,7 @@ operation would flood the agent's context, so the surface stays at four tools:
 | `capcut_state` | Live native playback state and a draft summary. |
 | `capcut_draft` | The canonical native draft, optionally one section or a summary. |
 | `capcut_edit` | Run one native edit operation; returns the native diff and the updated draft revision. |
+| `capcut_render` | Render the current draft to an MP4 with the shipped FFmpeg. |
 
 ### Why the engine runs in its own process
 
@@ -68,12 +69,58 @@ protocol; `src/native/client.mjs` spawns it and connects.
 `test/mcp.test.mjs` starts the real MCP server, connects a real MCP client and
 drives the real engine:
 
-- the four tools are advertised with schemas and descriptions
+- the five tools are advertised with schemas and descriptions
 - `capcut_capabilities` reports 199 operations and the parameter conventions
 - `capcut_state` reports `status: ready` and a live draft summary
 - `capcut_edit` mutates the draft and returns the native diff
+- `capcut_render` writes a playable H.264 file
 - a missing required parameter returns `segment_id_required`
 - an operation outside the catalogue returns `unsupported_operation`
+
+---
+
+## Rendering
+
+`capcut_render` renders the canonical native draft with the FFmpeg binary
+shipped inside the CapCut installation.
+
+```sh
+node src/lyra-native.mjs --operation render --output C:/out/video.mp4
+```
+
+Through MCP:
+
+```
+capcut_edit({operation:"video.add", params:{path:"C:/media/clip.mp4", sourceDuration:3000000}})
+capcut_render({output:"C:/out/video.mp4"})
+```
+
+### What it does
+
+- Composes the draft canvas: a generated color base at the declared canvas size,
+  then every video and sticker segment trimmed to its source range, scaled and
+  placed at its timeline position.
+- Mixes audio tracks with `adelay` and `amix`.
+- Rasterizes text layers and composites them with `overlay`.
+- Encodes with `h264_nvenc` by default; `h264_amf`, `h264_qsv` and `h264_mf`
+  are the alternatives.
+
+### The shipped build has no `drawtext`
+
+The FFmpeg binary in the CapCut installation is compiled without
+libfreetype, so it has no `drawtext` filter and no `ass` or `subtitles`
+filter. Text layers are therefore rasterized by `src/native/text-overlay.mjs`
+into RGBA PNG images with a built-in stroke font, and composited with
+`overlay`. The glyph set is ASCII 32..126; a character outside it renders as
+`?`. System fonts are not loaded.
+
+### Verified
+
+`test/render.test.mjs` renders the real draft and checks the result:
+
+- the plan names the encoder, the trims and the overlays
+- the rendered file is H.264, 1920x1080, 30 fps, and matches the draft duration
+- a text layer is rasterized and overlaid
 
 ---
 
@@ -228,6 +275,9 @@ app/
 │   │   ├── host.mjs         engine host process, line JSON over a local socket
 │   │   ├── client.mjs       spawns the host and connects to it
 │   │   ├── protocol.mjs     line-delimited JSON framing
+│   │   ├── render.mjs       draft-to-FFmpeg planner
+│   │   ├── render-draft.mjs runs the render
+│   │   ├── text-overlay.mjs rasterizes text layers to PNG
 │   │   └── lyra-native.mjs  native CLI argument and request handling
 │   ├── mcp-native.mjs       MCP server over the native engine
 │   ├── native-server.mjs    HTTP API over the real engine
@@ -246,7 +296,8 @@ app/
     ├── editor.test.mjs       22 model contract tests
     ├── lyra-cli-ipc.test.mjs 13 model CLI tests
     ├── native.test.mjs       8 native engine tests
-    └── mcp.test.mjs          7 MCP surface tests
+    ├── mcp.test.mjs          8 MCP surface tests
+    └── render.test.mjs       11 renderer tests
 ```
 
 ### Run the model edition

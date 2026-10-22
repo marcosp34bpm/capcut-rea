@@ -210,6 +210,16 @@ export class RemoteEditor {
   }
 
   /**
+   * Render the current draft to a video file.
+   *
+   * @param {Record<string, unknown>} [options] render options
+   * @returns {Promise<object>} the render result
+   */
+  async render(options = {}) {
+    return this.request({ method: "render", ...options });
+  }
+
+  /**
    * Report the identity of the engine this handle drives.
    *
    * @returns {Promise<object>} the editor metadata

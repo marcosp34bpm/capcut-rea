@@ -13,6 +13,7 @@
 import { createServer } from "node:net";
 
 import { openNativeEditor } from "./editor.mjs";
+import { renderDraft } from "./render-draft.mjs";
 import { decode, encode } from "./protocol.mjs";
 
 const port = Number(process.env.CAPCUT_NATIVE_HOST_PORT ?? 0);
@@ -84,6 +85,14 @@ const dispatch = async (request) => {
       return editor.getDraftSnapshot();
     case "operations":
       return { operations: request.operations ?? [] };
+    case "render": {
+      const draft = await editor.readDraft();
+      return renderDraft(draft, {
+        capcutRoot: process.env.CAPCUT_ROOT,
+        output: request.output,
+        encoder: request.encoder,
+      });
+    }
     default:
       throw Object.assign(new Error(`unknown method: ${request.method}`), {
         code: "unknown_method",

@@ -6,7 +6,9 @@
  */
 
 import assert from "node:assert/strict";
-import { existsSync } from "node:fs";
+import { existsSync, statSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { test } from "node:test";
 
 import { Client } from "@modelcontextprotocol/client";
@@ -41,6 +43,7 @@ test("the MCP server advertises a compact tool surface", { skip }, async () => {
       "capcut_capabilities",
       "capcut_draft",
       "capcut_edit",
+      "capcut_render",
       "capcut_state",
     ]);
     for (const tool of tools.tools) {
@@ -146,6 +149,24 @@ test("capcut_draft returns the canonical native draft", { skip }, async () => {
     assert.ok(payload.summary.durationUs > 0);
     assert.ok(payload.summary.tracks.length > 0);
     assert.ok(payload.summary.materialCounts.videos > 0);
+  } finally {
+    await client.close();
+  }
+});
+
+test("capcut_render produces a playable file", { skip }, async () => {
+  const client = await connect();
+  const output = join(tmpdir(), `capcut-mcp-render-${Date.now()}.mp4`);
+  try {
+    const result = await client.callTool({
+      name: "capcut_render",
+      arguments: { output },
+    });
+    const payload = JSON.parse(result.content[0].text);
+    assert.equal(payload.ffmpeg.code, 0);
+    assert.equal(payload.encoder, "h264_nvenc");
+    assert.ok(existsSync(output));
+    assert.ok(statSync(output).size > 10_000);
   } finally {
     await client.close();
   }
